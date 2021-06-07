@@ -1,0 +1,8 @@
+ddf514d4cf99dee1c72211cd155a888d *DESCRIPTION
+e837466ce39916496e388c432e82d123 *NAMESPACE
+811ea5975751c3dffeca2b791d308b87 *R/psp_global.R
+00970251e04032688b8c2c3b6cf65967 *man/psp.Rd
+8e0c86fee2c4370b4809b7904df24835 *man/psp_control.Rd
+bf7169c254faaa0172d53d2e6bcde5ed *man/psp_global.Rd
+a8f2b05eecb8562627cad52d307fa7b1 *tests/testthat.R
+1213947ddb4fdf3b46900a00a84fe46f *tests/testthat/test-polytope.R
