@@ -3,19 +3,22 @@
 \title{Parameter Space Partitioning}
 
 \description{
-  An all-purpose implementation of the Parameter Space Partitioning MCMC 
+  An all-purpose implementation of the Parameter Space Partitioning MCMC
   Algorithm described by Pitt, Kim, Navarro, Myung (2006).
 }
 
 \usage{
-psp_global(fn, control = psp_control())
+psp_global(fn, control = psp_control(), ..., quiet = FALSE)
 }
 
 \arguments{
   \item{fn}{The ordinal function. It should take a numeric vector (parameter set)
       as its argument, and return an ordinal response pattern as character (e.g.
       "A > B"). NA values are not currently allowed.}
-  \item{control}{a list of control parameters, see \code{\link{psp_control}}}
+  \item{control}{a list of control parameters, see \code{psp_control}}
+  \item{...}{Additional arguments passed to \code{fn}.}
+  \item{quiet}{If \code{FALSE} (default), print the total number of patterns
+      found up to the current iteration. If \code{TRUE}, do not print anything.}
 }
 
 \details{
@@ -33,33 +36,36 @@ psp_global(fn, control = psp_control())
     parameter set for a given pattern.
 
     2. Evaluate model on all new parameter sets.
-    
-    3. Record new patterns and their corresponding parameter sets. If the 
+
+    3. Record new patterns and their corresponding parameter sets. If the
     parameter sets returns an already discovered pattern, add parameter set
     to their records. Return to Step 1.
 
-    This process runs in parallel for each discovered pattern.
+    This process runs can run in parallel for each discovered pattern.
 
 }
 
 \value{
 
-Return a list with the following items:
+The output of function \code{psp} is a member of the \code{S3} class
+of \code{PSP}. A \code{PSP} object is a list with the following items:
 
-    \item{ps_partitions}{A data frame containing coordinates from their regions
-    and their corresponding ordinal response pattern output by \code{fn}. Columns
-    include (in this order): parameter coordinates, their ordinal pattern output
-    by \code{fn}, the global iteration of the MCMC. Each row corresponds with
-    the evaluation of a single set of parameters.}
+    \item{ps_partitions}{A \code{data.table} containing coordinates from the
+    parameter space and their corresponding ordinal response pattern output by
+    \code{fn}. Columns include (in this order): parameter coordinates,
+    their ordinal pattern output by \code{fn}, the global iteration of the
+    MCMC. Each row corresponds with the evaluation of a single set of
+    parameters.}
 
     \item{ps_patterns}{A table with the ordinal patterns discovered and the
     population of their corresponding region - the number of parameter sets
     discovered to produce the ordinal pattern.}
 
-}
+    \item{ps_ordinal}{A list (if ordinal patterns are multidimensional objects)
+    or character vector (if ordinal patterns are strings or other single values)
+    with the ordinal patterns found. The place of the ordinal pattern
+    corresponds to the names in ps_patterns.}
 
-\seealso{
-  \code{\link{psp_control}}.
 }
 
 \keyword{computational modelling; parameter space; model evaluation}
@@ -83,7 +89,7 @@ library(psp)
 #' @return euclidean distance between coordinates
 euclidean <- function(a, b) sqrt(sum((a - b)^2))
 
-# define center points for the 10 regions in a two-dimensional space 
+# define center points for the 10 regions in a two-dimensional space
 positions <- NULL
 for (i in seq_len(2)) positions <- cbind(positions, sample(500, 10))
 
@@ -97,12 +103,12 @@ for (i in seq_len(2)) positions <- cbind(positions, sample(500, 10))
 #' @examples
 #' model(runif(5))
 model <- function(par) {
-    areas <- NULL 
+    areas <- NULL
     for (i in seq_along(par)) {
         range <- c(1, 0)
         if (i \%\% 2 == 0) {
             range <- c(0, 1)
-        } 
+        }
         areas <- cbind(areas,
                        seq(range[1], range[2], length.out = 500)[positions[,i]])
     }
