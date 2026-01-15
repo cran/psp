@@ -1,7 +1,8 @@
 Package: psp
 Title: Parameter Space Partitioning MCMC for Global Model Evaluation
-Version: 1.0.2
-Date: 2024-07-24
+Version: 1.0.5
+Date: 2026-01-15
+Maintainer: Lenard Dome <lenarddome@gmail.com>
 Authors@R: c(person("Lenard", "Dome",
                    email = "lenarddome@gmail.com",
                    role = c("aut", "cre")),
@@ -16,9 +17,8 @@ Encoding: UTF-8
 Suggests: testthat (>= 3.0.0)
 Config/testthat/edition: 3
 NeedsCompilation: yes
-Packaged: 2024-07-24 09:09:21 UTC; lenarddome
+Packaged: 2026-01-15 09:41:26 UTC; lenarddome
 Author: Lenard Dome [aut, cre],
   Andy Wills [aut]
-Maintainer: Lenard Dome <lenarddome@gmail.com>
 Repository: CRAN
-Date/Publication: 2024-07-24 10:00:02 UTC
+Date/Publication: 2026-01-15 10:30:02 UTC
